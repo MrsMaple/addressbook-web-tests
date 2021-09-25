@@ -12,13 +12,8 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTests()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Navigator.GoToNewContactsPage();
             ContactData contact = new ContactData("Robert", "Braun");
-            app.Groups.FillContactForm(contact);
-            app.Groups.SubmitContactCreation();
-            app.Groups.ReturnToHomePage();
+            app.Groups.Create(contact);
         }
 
 
