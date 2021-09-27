@@ -10,10 +10,10 @@ namespace WebAddressbookTests
     public class ContactCreationTest : TestBase
     {
         [Test]
-        public void GroupCreationTests()
+        public void ContactCreationTests()
         {
             ContactData contact = new ContactData("Robert", "Braun");
-            app.Groups.Create(contact);
+            app.Contacts.Create(contact);
         }
 
 

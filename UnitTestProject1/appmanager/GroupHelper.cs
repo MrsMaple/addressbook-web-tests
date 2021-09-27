@@ -28,28 +28,20 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Create(ContactData contact)
+        public GroupHelper Modify(int p, GroupData newData)
         {
-            manager.Navigator.GoToNewContactsPage();
-            FillContactForm(contact);
-            SubmitContactCreation();
-            ReturnToHomePage();
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(p);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
             return this;
         }
 
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
-            return this;
-        }
-        public GroupHelper FillContactForm(ContactData contact)
-        {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
             return this;
         }
         public GroupHelper FillGroupForm(GroupData group)
@@ -71,19 +63,25 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
-        public GroupHelper SubmitContactCreation()
+
+        public GroupHelper SelectGroup(int p)
         {
-            driver.FindElement(By.Name("submit")).Click();
-            return this;
-        }
-        public GroupHelper ReturnToHomePage()
-        {
-            driver.FindElement(By.LinkText("home page")).Click();
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
         public GroupHelper ReturnToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
+            return this;
+        }
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
             return this;
         }
 
