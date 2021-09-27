@@ -16,6 +16,7 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
+
         public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.GoToNewContactsPage();
@@ -25,6 +26,33 @@ namespace WebAddressbookTests
             ReturnToHomePage();
             return this;
         }
+
+        public ContactHelper Modify(ContactData newData)
+        {
+            manager.Navigator.OpenHomePage();
+
+            EditContact();
+            FillContactForm(newData);
+            UpdateContactCreation();
+            ReturnToHomePage();
+            return this;
+        }
+        public ContactHelper Remove(int p)
+        {
+            manager.Navigator.OpenHomePage();
+
+            SelectContact(p);
+            RemoveContact();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int p)
+        {
+            driver.FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+
         public ContactHelper FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
@@ -35,11 +63,28 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
             return this;
         }
+        public ContactHelper EditContact()
+        {
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            return this;
+        }
+
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
+        public ContactHelper UpdateContactCreation()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
         public ContactHelper ReturnToHomePage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
