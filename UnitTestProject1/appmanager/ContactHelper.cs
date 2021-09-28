@@ -37,17 +37,17 @@ namespace WebAddressbookTests
             ReturnToHomePage();
             return this;
         }
-        public ContactHelper Remove(int p)
+        public ContactHelper Remove()
         {
             manager.Navigator.OpenHomePage();
 
-            SelectContact(p);
+            SelectContact();
             RemoveContact();
             driver.SwitchTo().Alert().Accept();
             return this;
         }
 
-        public ContactHelper SelectContact(int p)
+        public ContactHelper SelectContact()
         {
             driver.FindElement(By.Name("selected[]")).Click();
             return this;
