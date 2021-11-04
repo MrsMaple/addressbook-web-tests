@@ -19,7 +19,16 @@ namespace WebAddressbookTests
             group.Header = "qqq";
             group.Footer = "www";
 
-            app.Groups.Remove(1, group);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Remove(0, group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.RemoveAt(0);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

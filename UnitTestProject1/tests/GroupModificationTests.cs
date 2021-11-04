@@ -23,7 +23,15 @@ namespace WebAddressbookTests
             group.Header = "qqq";
             group.Footer = "www";
 
-            app.Groups.Modify(1, newData, group);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Modify(0, newData, group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
     }

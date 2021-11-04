@@ -27,6 +27,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                string firstname = cells[2].Text;
+                string lastname = cells[1].Text;
+                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
+            }
+            return contacts;
+        }
+
         public ContactHelper Modify(ContactData newData, ContactData contact)
         {
             manager.Navigator.OpenHomePage();
@@ -44,8 +59,11 @@ namespace WebAddressbookTests
             SelectContact();
             RemoveContact();
             driver.SwitchTo().Alert().Accept();
+            driver.FindElement(By.CssSelector("div.msgbox"));
             return this;
         }
+
+
 
         public ContactHelper ValidateContact(ContactData contact)
         {
