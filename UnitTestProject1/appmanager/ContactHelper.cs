@@ -42,20 +42,18 @@ namespace WebAddressbookTests
             return contacts;
         }
 
-        public ContactHelper Modify(ContactData newData, ContactData contact)
+        public ContactHelper Modify(ContactData newData)
         {
             manager.Navigator.OpenHomePage();
-            ValidateContact(contact);
             EditContact();
             FillContactForm(newData);
             UpdateContactCreation();
             ReturnToHomePage();
             return this;
         }
-        public ContactHelper Remove(ContactData contact)
+        public ContactHelper Remove()
         {
             manager.Navigator.OpenHomePage();
-            ValidateContact(contact);
             SelectContact();
             RemoveContact();
             driver.SwitchTo().Alert().Accept();
@@ -63,20 +61,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-
-
-        public ContactHelper ValidateContact(ContactData contact)
-        {
-            if (IsContact())
-            {
-                return this;
-            }
-            else
-            {
-                manager.Contacts.Create(contact);
-                return this;
-            }
-        }
         public bool IsContact()
         {
             return IsElementPresent(By.Name("selected[]"));

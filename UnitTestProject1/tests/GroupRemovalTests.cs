@@ -15,13 +15,20 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            GroupData group = new GroupData("aaa");
-            group.Header = "qqq";
-            group.Footer = "www";
+            app.Navigator.GoToGroupsPage();
+
+            if (app.Groups.IsGroup() != true)
+            {
+                GroupData group = new GroupData("aaa");
+                group.Header = "qqq";
+                group.Footer = "www";
+
+                app.Groups.Create(group);
+            }
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Remove(0, group);
+            app.Groups.Remove(0);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
